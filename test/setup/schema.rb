@@ -3,10 +3,13 @@ ActiveRecord::Schema.define do
 
   create_table :projects do |t|
     t.string :name
+    t.string :description
+    t.integer :position
     t.timestamps
   end
 
   create_table :todolists do |t|
+    t.string :name
     t.string :description
     t.references :project
     t.timestamps
@@ -14,11 +17,16 @@ ActiveRecord::Schema.define do
 
   create_table :todos do |t|
     t.string :action
+    t.string :location
+    t.text :notes
+    t.integer :duration_in_secs
+    t.integer :priority
     t.references :todolist
     t.timestamps
   end
 
-  create_table :tags do |t|
+  create_table :tags, id: false do |t|
+    t.primary_key :guid
     t.string :name
   end
 

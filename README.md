@@ -1,6 +1,6 @@
 # SimpleJsonApi
 
-TODO: Write a gem description
+A gem to render json following the [jsonapi](http://jsonapi.org) spec.
 
 ## Installation
 
@@ -21,6 +21,10 @@ Or install it yourself as:
 ## Usage
 
 TODO: Write usage instructions here
+
+
+## TODO
+
 
 ## Contributing
 
