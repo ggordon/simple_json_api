@@ -2,6 +2,14 @@ require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.configuration.git_dir = '.'
 CodeClimate::TestReporter.start
 
+require 'simplecov'
+if ENV['COVERAGE']
+  SimpleCov.start do
+    add_filter '/test/'
+  end
+  SimpleCov.minimum_coverage 98
+end
+
 require 'bundler/setup'
 
 require 'minitest/autorun'
