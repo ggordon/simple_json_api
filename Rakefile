@@ -14,6 +14,7 @@ Rake::TestTask.new do |t|
   t.libs.push 'test'
 end
 task test: 'coverage:clean'
+task default: :test
 
 RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
