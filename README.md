@@ -1,6 +1,6 @@
 # SimpleJsonApi
 
-[![Build Status](https://travis-ci.org/ggordon/simple_json_api.svg?branch=master)](https://travis-ci.org/ggordon/simple_json_api) [![Code Climate](https://codeclimate.com/github/ggordon/simple_json_api/badges/gpa.svg)](https://codeclimate.com/github/ggordon/simple_json_api)
+[![Build Status](https://travis-ci.org/ggordon/simple_json_api.svg?branch=master)](https://travis-ci.org/ggordon/simple_json_api) [![Code Climate](https://codeclimate.com/github/ggordon/simple_json_api/badges/gpa.svg)](https://codeclimate.com/github/ggordon/simple_json_api) [![Test Coverage](https://codeclimate.com/github/ggordon/simple_json_api/badges/coverage.svg)](https://codeclimate.com/github/ggordon/simple_json_api)
 
 A gem to render json following the [jsonapi](http://jsonapi.org) spec.
 
