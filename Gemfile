@@ -12,10 +12,8 @@ when 'master'
   # Learned from AMS
   # ugh https://github.com/rails/rails/issues/16063#issuecomment-48090125
   gem 'arel', github: 'rails/arel'
-when '4.0', '4.1'
+when '4.0', '4.1', '4.2'
   gem 'rails', "~> #{version}.0"
-when '4.2'
-  gem 'rails', "~> #{version}.0.rc0"
 else
   fail GemfileError, "Unsupported Rails version - #{version}"
 end
