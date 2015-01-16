@@ -3,14 +3,6 @@ CodeClimate::TestReporter.start
 
 require 'bundler/setup'
 
-# require 'simplecov'
-# if ENV['COVERAGE']
-#   SimpleCov.start do
-#     add_filter '/test/'
-#   end
-#   SimpleCov.minimum_coverage 95
-# end
-
 require 'minitest/autorun'
 require 'minitest/reporters'
 Minitest::Reporters.use!(
