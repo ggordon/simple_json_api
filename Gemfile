@@ -17,3 +17,5 @@ when '4.0', '4.1', '4.2'
 else
   fail GemfileError, "Unsupported Rails version - #{version}"
 end
+
+gem 'codeclimate-test-reporter', group: :test, require: nil
