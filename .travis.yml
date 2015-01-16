@@ -9,6 +9,3 @@ env:
 matrix:
   allow_failures:
     - env: 'RAILS_VERSION=master'
-addons:
-  code_climate:
-    repo_token: 2694b4e726c199f51e87d372b89897316b6f5a43e3b84f550b126316e9f096a6
