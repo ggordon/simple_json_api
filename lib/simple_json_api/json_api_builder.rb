@@ -17,7 +17,7 @@ module SimpleJsonApi
     def_delegators :@field_list, :fields_for
 
     # TODO: sort: nil
-    def initialize(model:, serializer:, options: {})
+    def initialize(model, serializer, options = {})
       @model = model
       handle_options(options, serializer)
       @serializer = get_serializer(serializer)
@@ -28,12 +28,10 @@ module SimpleJsonApi
 
     def handle_options(options, serializer)
       @field_list = FieldList.new(
-        fields: options.fetch(:fields, nil),
-        root_serializer: serializer
+        options.fetch(:fields, nil),
+        serializer
       )
-      @include = IncludeList.new(
-        include: options.fetch(:include, nil)
-      ).parse
+      @include = IncludeList.new(options.fetch(:include, nil)).parse
     end
 
     def as_json(options = nil)
@@ -64,23 +62,17 @@ module SimpleJsonApi
 
     def add_to_linked(assoc_base, item, serializer)
       linked = @linked[serializer._root_name] ||= []
-      return if linked.already_linked?(key: item.json_pk, id: item.json_id)
-      linked << serializer.new(
-        object: item, builder: self, base: assoc_base
-      ).serialize
+      return if linked.already_linked?(item.json_pk, item.json_id)
+      linked << serializer.new(item, self, nil, assoc_base).serialize
     end
 
     private
 
     def get_serializer(serializer)
       if use_array_serializer?
-        ArraySerializer.new(
-          object: @model,
-          each_serializer: serializer,
-          builder: self
-        )
+        ArraySerializer.new(@model, self, serializer)
       else
-        serializer.new(object: @model, builder: self)
+        serializer.new(@model, self)
       end
     end
 

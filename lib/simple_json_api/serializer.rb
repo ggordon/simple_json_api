@@ -9,7 +9,7 @@ module SimpleJsonApi
     attr_reader :_each_serializer
     attr_reader :_object
 
-    def initialize(object:, builder:, each_serializer: nil, base: nil)
+    def initialize(object, builder, each_serializer = nil, base = nil)
       @_object = object
       @_builder = builder
       @_each_serializer = each_serializer

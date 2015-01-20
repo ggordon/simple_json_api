@@ -2,7 +2,7 @@
 module SimpleJsonApi
   # List of Included associations for a resource
   class IncludeList
-    def initialize(include:)
+    def initialize(include)
       @include = include
       @include_list = []
     end

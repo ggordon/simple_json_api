@@ -4,7 +4,7 @@ module SimpleJsonApi
   class ArraySerializer < Serializer
     def serialize
       _object.map do |object|
-        serializer = _each_serializer.new(object: object, builder: _builder)
+        serializer = _each_serializer.new(object, _builder)
         serializer.serialize
       end
     end

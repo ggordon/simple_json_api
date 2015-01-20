@@ -2,7 +2,7 @@
 module SimpleJsonApi
   # List of Fields for a resource
   class FieldList
-    def initialize(fields:, root_serializer:)
+    def initialize(fields, root_serializer)
       @fields = fields
       @root_serializer = root_serializer
     end

@@ -33,10 +33,6 @@ module SimpleJsonApi
 
   # Main hook to generate json
   def self.render(model:, serializer:, options: {})
-    JsonApiBuilder.new(
-      model: model,
-      serializer: serializer,
-      options: options
-    ).to_json
+    JsonApiBuilder.new(model, serializer, options).to_json
   end
 end

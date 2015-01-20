@@ -6,7 +6,7 @@ module SimpleJsonApi
   module ArrayRefinements
     refine Array do
       using ActiveRecordRefinements
-      def already_linked?(key:, id:)
+      def already_linked?(key, id)
         find { |elem| elem[key] == id }
       end
     end
