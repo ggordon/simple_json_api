@@ -1,11 +1,15 @@
 language: ruby
 rvm:
-  - 2.2.0
+  - 2.1
+  - 2.2
 env:
   - 'RAILS_VERSION=4.0'
   - 'RAILS_VERSION=4.1'
   - 'RAILS_VERSION=4.2'
   - 'RAILS_VERSION=master'
 matrix:
+  exclude:
+    - rvm: 2.1
+      env: 'RAILS_VERSION=master'
   allow_failures:
     - env: 'RAILS_VERSION=master'
