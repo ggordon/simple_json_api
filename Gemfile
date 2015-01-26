@@ -8,7 +8,6 @@ version = ENV['RAILS_VERSION'] || '4.1'
 case version
 when 'master'
   gem 'rails', github: 'rails/rails'
-
   # Learned from AMS
   # ugh https://github.com/rails/rails/issues/16063#issuecomment-48090125
   gem 'arel', github: 'rails/arel'
@@ -18,4 +17,16 @@ else
   fail GemfileError, "Unsupported Rails version - #{version}"
 end
 
-gem 'codeclimate-test-reporter', group: :test, require: nil
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
+end
+
+group :development do
+  gem 'rdoc'
+
+  gem 'awesome_print'
+  gem 'diffy'
+  gem 'minitest'
+  gem 'minitest-reporters'
+  gem 'sqlite3'
+end
