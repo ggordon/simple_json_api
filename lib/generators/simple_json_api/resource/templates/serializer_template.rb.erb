@@ -7,6 +7,6 @@ class <%= serializer_name %>Serializer < SimpleJsonApi::ResourceSerializer
   <%- end -%>
 
   <%- @model.constantize.reflect_on_all_associations.each do |assoc| -%>
-  <%= assoc.macro %> :<%= assoc.name %>
+  <%= assoc.macro %> :<%= assoc.name %><%= ', polymorphic: true' if assoc.options[:polymorphic] %>
   <%- end -%>
 end
