@@ -14,6 +14,8 @@ require 'simple_json_api/resource_serializer'
 
 require 'simple_json_api/json_api_builder'
 
+require 'simple_json_api/helper'
+
 # SimpleJsonApi
 module SimpleJsonApi
   # Wrapper for a linked association

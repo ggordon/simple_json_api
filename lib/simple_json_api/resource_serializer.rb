@@ -44,7 +44,7 @@ module SimpleJsonApi
           association[:polymorphic] ? obj.typed_json_id : obj.json_id
         end
       else
-        resource.json_id
+        resource.json_id if resource
       end
     end
 

@@ -1,0 +1,11 @@
+class <%= @controller_name -%> < <%= @base_controller %>
+  include SimpleJsonApi::Helper
+
+  def index
+    @<%= class_name.underscore.pluralize %> = <%= @model -%>.all.to_a
+    render json: SimpleJsonApi.render(
+             model: @<%= class_name.underscore.pluralize %>,
+             serializer: <%= @serializer_name %>
+           )
+  end
+end

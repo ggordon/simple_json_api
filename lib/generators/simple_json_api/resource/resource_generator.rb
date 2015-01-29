@@ -12,7 +12,9 @@ module SimpleJsonApi
       class_option :namespace,
                    desc: 'Namespace for the generated files',
                    type: :string
-
+      class_option :controller,
+                   desc: 'Base controller for resources',
+                   type: :string
       class_option :skip_serializer,
                    desc: "Don't generate a serializer file.",
                    type: :boolean
@@ -26,19 +28,30 @@ module SimpleJsonApi
       def create_resource
         @namespace = options[:namespace]
         @model = options[:model] || class_name
+        namespaced_name = [@namespace, class_name].compact.join('::')
+        @serializer_name = "#{namespaced_name}Serializer"
+        @controller_name = "#{namespaced_name.pluralize}Controller"
+        @base_controller = options[:controller] || 'ApplicationController'
+        file_path = "#{@namespace.underscore}/#{class_name.underscore}"
 
-        ap @namespace
-        ap @model
-        ap class_name
         check_model!
 
-        template 'serializer_template.rb.erb',
-                 "app/serializers/#{@namespace.underscore}" \
-                   "/#{class_name.underscore}_serializer.rb" \
-                   unless options[:skip_serializer]
+        unless options[:skip_serializer]
+          template 'serializer_template.rb.erb',
+                   "app/serializers/#{file_path}_serializer.rb"
+          # TODO: create serializer test
+        end
 
-        # TODO: create controller
-        # TODO: create service
+        unless options[:skip_controller]
+          template 'controller_template.rb.erb',
+                   "app/controllers/#{file_path.pluralize}_controller.rb"
+          # TODO: create controller test
+        end
+
+        unless options[:skip_service]
+          # TODO: create service
+          # TODO: create service test
+        end
       end
 
       private
