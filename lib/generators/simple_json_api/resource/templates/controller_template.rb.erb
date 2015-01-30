@@ -4,8 +4,31 @@ class <%= @controller_name -%> < <%= @base_controller %>
   def index
     @<%= class_name.underscore.pluralize %> = <%= @model -%>.all.to_a
     render json: SimpleJsonApi.render(
-             model: @<%= class_name.underscore.pluralize %>,
-             serializer: <%= @serializer_name %>
-           )
+                   model: @<%= class_name.underscore.pluralize %>,
+                   serializer: <%= @serializer_name %>,
+                   options: options_hash
+                 ),
+           status: 200,
+           content_type: 'application/vnd.api+json'
+  end
+
+  def show
+    @<%= class_name.underscore %> = <%= @model -%>.find(params[:id])
+    render json: SimpleJsonApi.render(
+                   model: @<%= class_name.underscore %>,
+                   serializer: <%= @serializer_name %>,
+                   options: options_hash
+                 ),
+           status: 200,
+           content_type: 'application/vnd.api+json'
+  end
+
+  private
+
+  def options_hash
+    {
+      fields: params[:fields],
+      include: params[:include]
+    }
   end
 end
