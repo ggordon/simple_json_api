@@ -2,14 +2,13 @@ class <%= @controller_name -%> < <%= @base_controller %>
   include SimpleJsonApi::Helper
 
   def index
-    @<%= class_name.underscore.gsub('/', '__').pluralize %> = <%= @model -%>.all.to_a
+    @<%= class_name.underscore.gsub('/', '__').pluralize %> = <%= @model -%>.paginate(page: params[:page], per_page: params[:per_page]).to_a
     render json: SimpleJsonApi.render(
                    model: @<%= class_name.underscore.gsub('/', '__').pluralize %>,
                    serializer: <%= @serializer_name %>,
                    options: options_hash
                  ),
-           status: 200,
-           content_type: 'application/vnd.api+json'
+           status: 200
   end
 
   def show
@@ -19,8 +18,7 @@ class <%= @controller_name -%> < <%= @base_controller %>
                    serializer: <%= @serializer_name %>,
                    options: options_hash
                  ),
-           status: 200,
-           content_type: 'application/vnd.api+json'
+           status: 200
   end
 
   private
