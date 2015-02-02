@@ -1,5 +1,5 @@
 class <%= @serializer_name -%> < SimpleJsonApi::ResourceSerializer
-  serializes :<%= class_name.underscore.pluralize %>, model: <%= @model -%>, primary_key: :<%= @model.constantize.primary_key %>
+  serializes :<%= class_name.underscore.gsub('/', '__').pluralize %>, model: <%= @model -%>, primary_key: :<%= @model.constantize.primary_key %>
 
   <%- @model.constantize.column_names.each do |col| -%>
   attribute :<%= col %>

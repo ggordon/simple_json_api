@@ -2,9 +2,9 @@ class <%= @controller_name -%> < <%= @base_controller %>
   include SimpleJsonApi::Helper
 
   def index
-    @<%= class_name.underscore.pluralize %> = <%= @model -%>.all.to_a
+    @<%= class_name.underscore.gsub('/', '__').pluralize %> = <%= @model -%>.all.to_a
     render json: SimpleJsonApi.render(
-                   model: @<%= class_name.underscore.pluralize %>,
+                   model: @<%= class_name.underscore.gsub('/', '__').pluralize %>,
                    serializer: <%= @serializer_name %>,
                    options: options_hash
                  ),
@@ -13,9 +13,9 @@ class <%= @controller_name -%> < <%= @base_controller %>
   end
 
   def show
-    @<%= class_name.underscore %> = <%= @model -%>.find(params[:id])
+    @<%= class_name.underscore.gsub('/', '__') %> = <%= @model -%>.find(params[:id])
     render json: SimpleJsonApi.render(
-                   model: @<%= class_name.underscore %>,
+                   model: @<%= class_name.underscore.gsub('/', '__') %>,
                    serializer: <%= @serializer_name %>,
                    options: options_hash
                  ),
