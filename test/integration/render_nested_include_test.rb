@@ -7,6 +7,7 @@ module SimpleJsonApi
       compare_json(actual_project, expected_project.to_json)
       JSON.parse(actual_project).must_equal expected_project
     end
+    
 
     let(:actual_project) do
       SimpleJsonApi.render(

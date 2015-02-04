@@ -4,10 +4,12 @@ require 'test_helper'
 module SimpleJsonApi
   describe 'RenderBasicTest' do
     it 'should match json hash for a project with no options' do
+      # compare_json(actual_project, expected_project.to_json)
       JSON.parse(actual_project).must_equal expected_project
     end
 
     it 'should match json hash for a project array with no options' do
+      compare_json(actual_projects, expected_projects.to_json)
       JSON.parse(actual_projects).must_equal expected_projects
     end
 
@@ -27,7 +29,7 @@ module SimpleJsonApi
           'href' => 'http://example.com/projects/100',
           'links' => {
             'todolist' => '200',
-            'tags' => ['10']
+            'tags' => %w(10)
           }
         }
       }
@@ -50,7 +52,7 @@ module SimpleJsonApi
             'href' => 'http://example.com/projects/100',
             'links' => {
               'todolist' => '200',
-              'tags' => ['10']
+              'tags' => %w(10)
             }
           },
           {
@@ -61,7 +63,7 @@ module SimpleJsonApi
             'href' => 'http://example.com/projects/110',
             'links' => {
               'todolist' => '210',
-              'tags' => ['20']
+              'tags' => %w(20)
             }
           }
         ]

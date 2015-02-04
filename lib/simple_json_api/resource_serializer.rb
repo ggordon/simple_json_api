@@ -1,19 +1,23 @@
+require 'simple_json_api/refinements/active_record'
+
 # SimpleJsonApi
 module SimpleJsonApi
   # The Serializer will serialize a model
   class ResourceSerializer < Serializer
-    using ActiveRecordRefinements
+    using Refinements::ActiveRecord
 
     def _root_name
       self.class._root_name
     end
 
     def _fields
-      @_fields ||= begin
-        defaults = self.class.default_fields.split(',')
-        builders = _builder.fields_for(_root_name).presence
-        (builders || defaults).map(&:to_sym)
-      end
+      @_fields ||= _get_fields
+    end
+
+    # If default_fields is not specified, use all_fields
+    def _get_fields
+      defaults = default_fields ? default_fields & all_fields : all_fields
+      (builder_fields || defaults).map(&:to_sym)
     end
 
     def serialize
@@ -55,6 +59,7 @@ module SimpleJsonApi
     def _association_values
       _associations.each do |association|
         name = association[:name]
+        next unless include_association?(name, @_base)
         obj = send(name)
         _builder.add_linked_elem(
           name,
@@ -63,6 +68,12 @@ module SimpleJsonApi
           @_base
         )
       end
+    end
+
+    def include_association?(name, parent = nil)
+      names = name.to_s.pluralize
+      _builder.include.try(:include?, names, parent) ||
+        self.class._required_associations.try(:include?, names)
     end
   end
 end

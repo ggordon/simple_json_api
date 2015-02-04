@@ -1,9 +1,12 @@
+require 'simple_json_api/refinements/active_record'
+require 'simple_json_api/refinements/array'
+
 # SimpleJsonApi
 module SimpleJsonApi
   # The Builder to walk the hierarchy and contruct the JSON
   class JsonApiBuilder
-    using ActiveRecordRefinements
-    using ArrayRefinements
+    using Refinements::ActiveRecord
+    using Refinements::Array
 
     extend Forwardable
 
@@ -15,6 +18,7 @@ module SimpleJsonApi
     attr_reader :result
 
     def_delegators :@field_list, :fields_for
+    # def_delegators :@include, :include_list
 
     # TODO: sort: nil
     def initialize(model, serializer, options = {})
@@ -39,6 +43,8 @@ module SimpleJsonApi
     end
 
     def build
+      root_node = ApiNode.new(@serializer._root_name, @serializer, @model, @include.include_hash)
+      root_node.load.display
       result[@serializer._root_name] = @serializer.serialize
       @result[:linked] = @linked unless @linked.empty?
       @result
@@ -56,7 +62,7 @@ module SimpleJsonApi
       # TODO: don't include middle unless explicitly requested.
       return unless include.include?(resource_name, base)
       assoc_base = [base, resource_name].compact.join('.')
-      serializer = ResourceSerializer.for(item, association)
+      serializer = Serializer.for(item, association)
       add_to_linked(assoc_base, item, serializer)
     end
 

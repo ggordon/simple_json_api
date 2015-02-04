@@ -1,10 +1,6 @@
 require 'simple_json_api/version'
 
-require 'simple_json_api/active_record_refinements'
-require 'simple_json_api/array_refinements'
-# require 'simple_json_api/association'
-# require 'simple_json_api/attribute'
-require 'simple_json_api/dsl'
+require 'simple_json_api/api_node'
 require 'simple_json_api/field_list'
 require 'simple_json_api/include_list'
 

@@ -34,7 +34,7 @@ module SimpleJsonApi
         @base_controller = options[:controller] || 'ApplicationController'
         file_path = "#{@namespace.underscore}/#{class_name.underscore}"
 
-        check_model!
+        check_model
 
         unless options[:skip_serializer]
           template 'serializer_template.rb.erb',
@@ -56,7 +56,7 @@ module SimpleJsonApi
 
       private
 
-      def check_model!
+      def check_model
         unless @model.constantize.ancestors.include?(ActiveRecord::Base)
           fail NameError
         end

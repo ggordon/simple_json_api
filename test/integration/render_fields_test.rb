@@ -15,6 +15,10 @@ module SimpleJsonApi
       JSON.parse(actual_projects).must_equal expected_projects
     end
 
+    it 'should match hash for todo with default_fields specified' do
+      JSON.parse(actual_todo).must_equal expected_todo
+    end
+
     let(:actual_project) do
       SimpleJsonApi.render(
         model: Project.first,
@@ -72,6 +76,25 @@ module SimpleJsonApi
             }
           }
         ]
+      }
+    end
+
+    let(:actual_todo) do
+      SimpleJsonApi.render(
+        model: Todo.first,
+        serializer: TodoSerializer
+      )
+    end
+    let(:expected_todo) do
+      {
+        'todos' => {
+          'id' => '300',
+          'action' => 'Milk',
+          'href' => 'http://example.com/todos/300',
+          'links' => {
+            'tags' => %w(10 20)
+          }
+        }
       }
     end
   end

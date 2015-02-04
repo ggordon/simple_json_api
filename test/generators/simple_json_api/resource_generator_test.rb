@@ -22,6 +22,10 @@ module SimpleJsonApi
           %w(Project --namespace=Api::V3 --model=ProjectSerializer)
         end
       end
+
+      def teardown
+        FileUtils.rm_rf('tmp/generators')
+      end
     end
   end
 end

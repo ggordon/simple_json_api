@@ -5,15 +5,45 @@ module SimpleJsonApi
   describe 'IncludeListTest' do
     it 'should parse string include list' do
       il = IncludeList.new('todos,projects').parse
-      assert il.include?(:projects)
-      refute il.include?(:todo_lists)
+      expected = {
+        todos: {
+          include: true
+        },
+        projects: {
+          include: true
+        }
+      }
+      il.include_hash.must_equal expected
     end
 
     it 'should parse string for nested include list' do
       il = IncludeList.new('todos,projects.todolists').parse
-      refute il.include?(:projects)
-      assert il.include?(:todos)
-      assert il.include?(:todolists, [:projects])
+      expected = {
+        todos: {
+          include: true
+        },
+        projects: {
+          todolists: {
+            include: true
+          }
+        }
+      }
+      il.include_hash.must_equal expected
+    end
+
+    it 'should parse string for nested include list skipping middle' do
+      il = IncludeList.new('todolist,todolist.todos.tags').parse
+      expected = {
+        todolists: {
+          include: true,
+          todos: {
+            tags: {
+              include: true
+            }
+          }
+        }
+      }
+      il.include_hash.must_equal expected
     end
   end
 end

@@ -1,3 +1,5 @@
+require 'simple_json_api/dsl'
+
 # SimpleJsonApi
 module SimpleJsonApi
   # The Serializer will serialize a model
@@ -14,6 +16,23 @@ module SimpleJsonApi
       @_builder = builder
       @_each_serializer = each_serializer
       @_base = base
+    end
+
+    private
+
+    def default_fields
+      self.class._default_fields
+    end
+
+    def all_fields
+      self.class.default_attributes.split(',')
+    end
+
+    def builder_fields
+      _builder.fields_for(_root_name).presence
+    end
+
+    def builder_associations
     end
 
     class << self

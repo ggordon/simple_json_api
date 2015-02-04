@@ -4,6 +4,8 @@ module SimpleJsonApi
   module DSL
     attr_accessor :_associations
     attr_accessor :_attributes
+    attr_accessor :_default_fields
+    attr_accessor :_required_associations
     attr_reader :_root_name
 
     def inherited(base)
@@ -12,7 +14,7 @@ module SimpleJsonApi
     end
 
     def serializes(name, options = {})
-      ResourceSerializer.register_serializer(
+      Serializer.register_serializer(
         { serializer: self, resource: name },
         options
       )
@@ -21,6 +23,16 @@ module SimpleJsonApi
 
     def attribute(name, options = {})
       register_attribute(name, options)
+    end
+
+    # Attributes presented if no fields specified
+    def default_fields(attrs)
+      @_default_fields = attrs
+    end
+
+    # Associations that are always included
+    def required_associations(assocs)
+      @_required_associations = assocs
     end
 
     def belongs_to(name, options = {})
@@ -35,7 +47,7 @@ module SimpleJsonApi
       register_association(name, :has_one, options)
     end
 
-    def default_fields
+    def default_attributes
       @_attributes.map(&:first).join(',')
     end
 
@@ -48,7 +60,17 @@ module SimpleJsonApi
         name, type, serializer, polymorphic
       )
       _associations << association
-      def_delegator :_object, association.name
+      define_assoc_method(association) # unless defined? association.name
+    end
+
+    def define_assoc_method(association)
+      define_method association.name do
+        result = _object.send(association.name)
+        if result.is_a? ActiveRecord::Associations::CollectionProxy
+          result = result.to_a
+        end
+        result
+      end
     end
 
     def register_attribute(name, options)
