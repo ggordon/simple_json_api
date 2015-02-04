@@ -13,13 +13,10 @@ module SimpleJsonApi
 
     def parse
       result = {}
-      case @fields
-      when Hash
+      if @fields.is_a? Hash
         @fields.each do |resource, fields|
-          result[resource.to_sym] = FIELD_LIST_PARSER.call(fields)
+          result[resource.to_sym] = fields.split(',').map(&:to_s)
         end
-      when String
-        result[@root_serializer._root_name] = FIELD_LIST_PARSER.call(@fields)
       end
       result
     end
@@ -27,7 +24,5 @@ module SimpleJsonApi
     def fields_for(resource)
       field_list.fetch(resource, nil)
     end
-
-    FIELD_LIST_PARSER = ->(list) { list.split(',').map(&:to_s) }
   end
 end

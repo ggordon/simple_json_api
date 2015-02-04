@@ -1,27 +1,39 @@
+require 'simple_json_api/refinements/active_record'
+require 'simple_json_api/refinements/symbol'
+
 # SimpleJsonApi
 module SimpleJsonApi
   # The Serializer will serialize a model
   class ResourceSerializer < Serializer
-    using ActiveRecordRefinements
+    using Refinements::ActiveRecord
+    using Refinements::Symbol
 
     def _root_name
       self.class._root_name
     end
 
+    def type
+      _root_name
+    end
+
+    def id
+      _object.try(:id) || _object.try(:guid)
+    end
+
     def _fields
-      @_fields ||= begin
-        defaults = self.class.default_fields.split(',')
-        builders = _builder.fields_for(_root_name).presence
-        (builders || defaults).map(&:to_sym)
-      end
+      @_fields ||= _get_fields
+    end
+
+    # If default_fields is not specified, use all_fields
+    def _get_fields
+      builder_fields
     end
 
     def serialize
       hash = {}
       attribute_values(hash)
       link_values(hash[:links] = {})
-      _association_values
-      hash
+      Resource.new(hash)
     end
 
     def attribute_values(hash)
@@ -38,31 +50,20 @@ module SimpleJsonApi
     end
 
     def link(association)
-      resource = send(association.name)
       if association.type == :has_many
-        resource.to_a.map do |obj|
+        includes = association.polymorphic ? [] : Serializer.includes(association)
+        resource = send(association.name, includes)
+        resource.map do |obj|
           association[:polymorphic] ? obj.typed_json_id : obj.json_id
         end
       else
+        resource = send(association.name)
         resource.json_id if resource
       end
     end
 
     def _associations
       self.class._associations
-    end
-
-    def _association_values
-      _associations.each do |association|
-        name = association[:name]
-        obj = send(name)
-        _builder.add_linked_elem(
-          name,
-          obj,
-          association,
-          @_base
-        )
-      end
     end
   end
 end

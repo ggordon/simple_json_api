@@ -35,7 +35,7 @@ module SimpleJsonApi
           primary_key: :id
         }
       ]
-      ResourceSerializer.registered_serializers.must_equal expected
+      Serializer.registered_serializers.must_equal expected
     end
   end
 end

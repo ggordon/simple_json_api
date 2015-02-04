@@ -3,35 +3,30 @@ require 'test_helper'
 # SimpleJsonApi
 module SimpleJsonApi
   describe 'RenderFieldsTest' do
-    it 'should match json hash for a project with fields specified' do
-      JSON.parse(actual_project).must_equal expected_project
-    end
-
     it 'should match json hash for a project with fields specified as hash' do
-      JSON.parse(actual_project_field_hash).must_equal expected_project
+      actual_project_field_hash.must_match_json expected_project
     end
 
     it 'should match json hash for a project array with fields specified' do
-      JSON.parse(actual_projects).must_equal expected_projects
+      actual_projects.must_match_json expected_projects
     end
 
-    let(:actual_project) do
-      SimpleJsonApi.render(
-        model: Project.first,
-        serializer: ProjectSerializer,
-        options: { fields: 'name,description' }
-      )
+    it 'should match hash for todo with default_fields specified' do
+      actual_todo.must_match_json expected_todo
     end
+
     let(:actual_project_field_hash) do
       SimpleJsonApi.render(
         model: Project.first,
         serializer: ProjectSerializer,
-        options: { fields: { projects: 'name,description' } }
+        fields: { projects: 'name,description' }
       )
     end
     let(:expected_project) do
       {
-        'projects' => {
+        'data' => {
+          'type' => 'projects',
+          'id' => '100',
           'name' => 'First Project',
           'description' => 'The first project',
           'href' => 'http://example.com/projects/100',
@@ -47,13 +42,15 @@ module SimpleJsonApi
       SimpleJsonApi.render(
         model: Project.all.to_a,
         serializer: ProjectSerializer,
-        options: { fields: 'name,description' }
+        fields: { 'projects' => 'name,description' }
       )
     end
     let(:expected_projects) do
       {
-        'projects' => [
+        'data' => [
           {
+            'type' => 'projects',
+            'id' => '100',
             'name' => 'First Project',
             'description' => 'The first project',
             'href' => 'http://example.com/projects/100',
@@ -63,6 +60,8 @@ module SimpleJsonApi
             }
           },
           {
+            'type' => 'projects',
+            'id' => '110',
             'name' => 'Second Project',
             'description' => 'The second project',
             'href' => 'http://example.com/projects/110',
@@ -72,6 +71,26 @@ module SimpleJsonApi
             }
           }
         ]
+      }
+    end
+
+    let(:actual_todo) do
+      SimpleJsonApi.render(
+        model: Todo.first,
+        serializer: TodoSerializer
+      )
+    end
+    let(:expected_todo) do
+      {
+        'data' => {
+          'type' => 'todos',
+          'id' => '300',
+          'action' => 'Milk',
+          'href' => 'http://example.com/todos/300',
+          'links' => {
+            'tags' => %w(10 30)
+          }
+        }
       }
     end
   end

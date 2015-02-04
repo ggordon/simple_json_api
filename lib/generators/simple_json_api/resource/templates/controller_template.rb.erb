@@ -6,7 +6,8 @@ class <%= @controller_name -%> < <%= @base_controller %>
     render json: SimpleJsonApi.render(
                    model: @<%= class_name.underscore.gsub('/', '__').pluralize %>,
                    serializer: <%= @serializer_name %>,
-                   options: options_hash
+                   fields: options_hash.fetch(:fields, nil),
+                   include: options_hash.fetch(:include, nil)
                  ),
            status: 200
   end
@@ -16,7 +17,8 @@ class <%= @controller_name -%> < <%= @base_controller %>
     render json: SimpleJsonApi.render(
                    model: @<%= class_name.underscore.gsub('/', '__') %>,
                    serializer: <%= @serializer_name %>,
-                   options: options_hash
+                   fields: options_hash.fetch(:fields, nil),
+                   include: options_hash.fetch(:include, nil)
                  ),
            status: 200
   end

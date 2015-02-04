@@ -3,15 +3,6 @@ require 'test_helper'
 # SimpleJsonApi
 module SimpleJsonApi
   describe 'FieldListTest' do
-    it 'should parse string field list' do
-      fl = FieldList.new(
-        'id,name',
-        ProjectSerializer
-      )
-      fl.fields_for(:projects).must_equal %w(id name)
-      fl.fields_for(:todos).must_equal nil
-    end
-
     it 'should parse hash field list' do
       fl = FieldList.new(
         {
@@ -23,6 +14,5 @@ module SimpleJsonApi
       fl.fields_for(:projects).must_equal %w(id name)
       fl.fields_for(:todos).must_equal %w(id description)
     end
-
   end
 end

@@ -4,11 +4,11 @@ require 'test_helper'
 module SimpleJsonApi
   describe 'RenderBasicTest' do
     it 'should match json hash for a project with no options' do
-      JSON.parse(actual_project).must_equal expected_project
+      actual_project.must_match_json expected_project
     end
 
     it 'should match json hash for a project array with no options' do
-      JSON.parse(actual_projects).must_equal expected_projects
+      actual_projects.must_match_json expected_projects
     end
 
     let(:actual_project) do
@@ -19,7 +19,8 @@ module SimpleJsonApi
     end
     let(:expected_project) do
       {
-        'projects' => {
+        'data' => {
+          'type' => 'projects',
           'id' => '100',
           'name' => 'First Project',
           'description' => 'The first project',
@@ -27,7 +28,7 @@ module SimpleJsonApi
           'href' => 'http://example.com/projects/100',
           'links' => {
             'todolist' => '200',
-            'tags' => ['10']
+            'tags' => %w(10)
           }
         }
       }
@@ -41,8 +42,9 @@ module SimpleJsonApi
     end
     let(:expected_projects) do
       {
-        'projects' => [
+        'data' => [
           {
+            'type' => 'projects',
             'id' => '100',
             'name' => 'First Project',
             'description' => 'The first project',
@@ -50,10 +52,11 @@ module SimpleJsonApi
             'href' => 'http://example.com/projects/100',
             'links' => {
               'todolist' => '200',
-              'tags' => ['10']
+              'tags' => %w(10)
             }
           },
           {
+            'type' => 'projects',
             'id' => '110',
             'name' => 'Second Project',
             'description' => 'The second project',
@@ -61,7 +64,7 @@ module SimpleJsonApi
             'href' => 'http://example.com/projects/110',
             'links' => {
               'todolist' => '210',
-              'tags' => ['20']
+              'tags' => %w(20)
             }
           }
         ]

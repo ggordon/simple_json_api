@@ -20,6 +20,7 @@ end
 # TodoSerializer for testing
 class TodoSerializer < SimpleJsonApi::ResourceSerializer
   serializes :todos, model: Todo
+  default_fields %w(id action)
   attribute :id
   attribute :action
   attribute :location
@@ -45,6 +46,7 @@ end
 # ProjectSerializer for testing
 class ProjectSerializer < SimpleJsonApi::ResourceSerializer
   serializes :projects, model: Project
+  required_associations %w(todolists)
   attribute :id
   attribute :name, key: :project_name
   attribute :description
