@@ -5,6 +5,7 @@ module SimpleJsonApi
   # Will start as a tree with duplication
   class ApiNode
     attr_reader :name
+
     using Refinements::Symbol
 
     # module Visiting
@@ -20,12 +21,6 @@ module SimpleJsonApi
       @model = model
       @assoc_list = assoc_list
       @associations = [] # list of api_nodes
-
-      # ap "!!! #{@object_name}"
-      # ap "!!!!! #{@serializer}"
-      # ap "!!!!! #{@serializer._each_serializer}"
-      # ap "!!!!! #{@object}"
-      # ap "!!!!! #{@assoc_list}"
     end
 
     def load

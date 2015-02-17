@@ -22,14 +22,14 @@ module SimpleJsonApi
       self
     end
 
-    def visit?(resource, parent = [])
-      path = [parent, resource].flatten.compact.join('.')
-      path.split('.').inject(@include_hash) do |hash, key|
-        return false unless hash.key? key.to_sym
-        hash[key.pluralize.to_sym]
-      end
-      true
-    end
+    # def visit?(resource, parent = [])
+    #   path = [parent, resource].flatten.compact.join('.')
+    #   path.split('.').inject(@include_hash) do |hash, key|
+    #     return false unless hash.key? key.to_sym
+    #     hash[key.pluralize.to_sym]
+    #   end
+    #   true
+    # end
 
     def include?(resource, parent = [])
       # TODO: if parent is an array instead of string...
