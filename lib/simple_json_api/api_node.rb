@@ -35,10 +35,13 @@ module SimpleJsonApi
     def add_association(association)
       name = association[:name]
       plural_name = name.pluralize
+
       return unless @assoc_list.key? plural_name
+
       object = @serializer.associated_object(name)
+      each_serializer = Serializer.for(object, association)
       serializer = SerializerFactory.create(
-        object, @serializer.class, @serializer._builder
+        object, each_serializer, @serializer._builder
       )
       self <<
         ApiNode.new(
