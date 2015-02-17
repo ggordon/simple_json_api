@@ -6,7 +6,7 @@ module SimpleJsonApi
   class ApiNode
     attr_reader :name
 
-    using Refinements::Symbol
+    # using Refinements::Symbol
 
     # module Visiting
     #   def self.default_visitor
@@ -33,22 +33,19 @@ module SimpleJsonApi
     end
 
     def add_association(association)
-      name = association[:name]
-      plural_name = name.pluralize
+      return unless @assoc_list.key? association.plural_name
 
-      return unless @assoc_list.key? plural_name
-
-      object = @serializer.associated_object(name)
+      object = @serializer.associated_object(association.name)
       each_serializer = Serializer.for(object, association)
       serializer = SerializerFactory.create(
         object, each_serializer, @serializer._builder
       )
       self <<
         ApiNode.new(
-          plural_name,
+          association.plural_name,
           serializer,
           object,
-          @assoc_list[plural_name],
+          @assoc_list[association.plural_name],
           serializer._each_serializer
         ).load
     end

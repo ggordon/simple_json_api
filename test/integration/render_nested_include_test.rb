@@ -41,7 +41,15 @@ module SimpleJsonApi
               'id' => '200',
               'href' => 'http://example.com/todolists/200',
               'links' => {
-                'todos' => ['300'],
+                'todos' => %w(300 301),
+                'tags' => ['30']
+              }
+            },
+            {
+              'id' => '200',
+              'href' => 'http://example.com/todolists/200',
+              'links' => {
+                'todos' => %w(300 301),
                 'tags' => ['30']
               }
             }
@@ -51,7 +59,14 @@ module SimpleJsonApi
               'id' => '300',
               'href' => 'http://example.com/todos/300',
               'links' => {
-                'tags' => %w(10 20)
+                'tags' => %w(10 30)
+              }
+            },
+            {
+              'id' => '301',
+              'href' => 'http://example.com/todos/301',
+              'links' => {
+                'tags' => %w(10)
               }
             },
             {
@@ -66,7 +81,7 @@ module SimpleJsonApi
               'id' => '300',
               'href' => 'http://example.com/todos/300',
               'links' => {
-                'tags' => %w(10 20)
+                'tags' => %w(10 30)
               }
             }
           ],
@@ -77,15 +92,16 @@ module SimpleJsonApi
                 'taggables' => [
                   %w(projects 100),
                   %w(todos 300),
+                  %w(todos 301),
                   %w(todos 330)
                 ]
               }
             },
             {
-              'guid' => '20',
+              'guid' => '30',
               'links' => {
                 'taggables' => [
-                  %w(projects 110),
+                  %w(todolists 200),
                   %w(todos 300)
                 ]
               }
@@ -99,16 +115,6 @@ module SimpleJsonApi
                 'todolist' => '200',
                 'tags' => [
                   '10'
-                ]
-              }
-            },
-            {
-              'id' => '110',
-              'href' => 'http://example.com/projects/110',
-              'links' => {
-                'todolist' => '210',
-                'tags' => [
-                  '20'
                 ]
               }
             }

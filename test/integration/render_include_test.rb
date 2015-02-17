@@ -8,6 +8,7 @@ module SimpleJsonApi
     end
 
     it 'should match json hash for a project array with include specified' do
+      compare_json(actual_projects, expected_projects.to_json)
       JSON.parse(actual_projects).must_equal expected_projects
     end
 
@@ -38,7 +39,7 @@ module SimpleJsonApi
               'description' => 'Groceries',
               'href' => 'http://example.com/todolists/200',
               'links' => {
-                'todos' => ['300'],
+                'todos' => %w(300 301),
                 'tags' => ['30']
               }
             }
@@ -88,7 +89,7 @@ module SimpleJsonApi
               'description' => 'Groceries',
               'href' => 'http://example.com/todolists/200',
               'links' => {
-                'todos' => ['300'],
+                'todos' => %w(300 301),
                 'tags' => ['30']
               }
             },
@@ -111,6 +112,7 @@ module SimpleJsonApi
                 'taggables' => [
                   %w(projects 100),
                   %w(todos 300),
+                  %w(todos 301),
                   %w(todos 330)
                 ]
               }
@@ -120,8 +122,7 @@ module SimpleJsonApi
               'name' => 'On Hold',
               'links' => {
                 'taggables' => [
-                  %w(projects 110),
-                  %w(todos 300)
+                  %w(projects 110)
                 ]
               }
             }

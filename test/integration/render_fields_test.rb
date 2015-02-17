@@ -16,6 +16,7 @@ module SimpleJsonApi
     end
 
     it 'should match hash for todo with default_fields specified' do
+      compare_json(actual_todo, expected_todo.to_json)
       JSON.parse(actual_todo).must_equal expected_todo
     end
 
@@ -92,7 +93,7 @@ module SimpleJsonApi
           'action' => 'Milk',
           'href' => 'http://example.com/todos/300',
           'links' => {
-            'tags' => %w(10 20)
+            'tags' => %w(10 30)
           }
         }
       }
