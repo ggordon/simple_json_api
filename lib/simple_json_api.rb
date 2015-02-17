@@ -4,6 +4,7 @@ require 'simple_json_api/api_node'
 require 'simple_json_api/field_list'
 require 'simple_json_api/include_list'
 
+require 'simple_json_api/serializer_factory'
 require 'simple_json_api/serializer'
 require 'simple_json_api/array_serializer'
 require 'simple_json_api/resource_serializer'

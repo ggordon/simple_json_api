@@ -24,7 +24,7 @@ module SimpleJsonApi
     def initialize(model, serializer, options = {})
       @model = model
       handle_options(options, serializer)
-      @serializer = get_serializer(serializer)
+      @serializer = SerializerFactory.create(@model, serializer, self)
       @_included_resources = {}
       @result = {}
       @linked = {}
@@ -70,21 +70,6 @@ module SimpleJsonApi
       linked = @linked[serializer._root_name] ||= []
       return if linked.already_linked?(item.json_pk, item.json_id)
       linked << serializer.new(item, self, nil, assoc_base).serialize
-    end
-
-    private
-
-    def get_serializer(serializer)
-      if use_array_serializer?
-        ArraySerializer.new(@model, self, serializer)
-      else
-        serializer.new(@model, self)
-      end
-    end
-
-    def use_array_serializer?
-      @model.is_a?(Array) ||
-        @model.is_a?(ActiveRecord::Associations::CollectionProxy)
     end
   end
 end
