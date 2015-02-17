@@ -42,10 +42,16 @@ module SimpleJsonApi
       plural_name = name.pluralize
       return unless @assoc_list.key? plural_name
       object = @serializer.associated_object(name)
-      serializer = SerializerFactory.create(object, @serializer.class, @serializer._builder)
+      serializer = SerializerFactory.create(
+        object, @serializer.class, @serializer._builder
+      )
       self <<
         ApiNode.new(
-          plural_name, serializer, object, @assoc_list[plural_name], serializer._each_serializer
+          plural_name,
+          serializer,
+          object,
+          @assoc_list[plural_name],
+          serializer._each_serializer
         ).load
     end
 
