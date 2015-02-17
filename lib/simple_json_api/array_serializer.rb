@@ -9,6 +9,10 @@ module SimpleJsonApi
       end
     end
 
+    def associated_object(association_name)
+      serializers.map { |serializer| serializer.send(association_name) }
+    end
+
     def _root_name
       _each_serializer._root_name
     end

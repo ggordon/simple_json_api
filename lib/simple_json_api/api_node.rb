@@ -21,11 +21,11 @@ module SimpleJsonApi
       @assoc_list = assoc_list
       @associations = [] # list of api_nodes
 
-      ap "!!! #{@name}"
-      ap "!!!!! #{@serializer}"
-      ap "!!!!! #{@serializer._each_serializer}"
-      ap "!!!!! #{@model}"
-      ap "!!!!! #{@assoc_list}"
+      # ap "!!! #{@object_name}"
+      # ap "!!!!! #{@serializer}"
+      # ap "!!!!! #{@serializer._each_serializer}"
+      # ap "!!!!! #{@object}"
+      # ap "!!!!! #{@assoc_list}"
     end
 
     def load
@@ -34,8 +34,6 @@ module SimpleJsonApi
       serializer._associations.each do |association|
         add_association(association)
       end
-      ap '=' * 20
-      ap display
       self
     end
 
@@ -43,29 +41,23 @@ module SimpleJsonApi
       name = association[:name]
       plural_name = name.pluralize
       return unless @assoc_list.key? plural_name
-      model = model_from_serializer(name)
-      serializer = serializer_from_model(association, model)
+      object = @serializer.associated_object(name)
+      serializer = serializer_for_object(association, object)
       self <<
         ApiNode.new(
-          plural_name, serializer, model, @assoc_list[plural_name], serializer._each_serializer
+          plural_name, serializer, object, @assoc_list[plural_name], serializer._each_serializer
         ).load
     end
 
-    def serializer_from_model(association, model)
-      if model.is_a? Array
-        serializer_klass = Serializer.for(model.first, association)
-        ArraySerializer.new(model, @serializer._builder, serializer_klass)
+    def serializer_for_object(association, object)
+      # TODO: move to SerializerFactory
+      is_array = object.is_a? Array
+      sample_object = is_array ? object.first : object
+      serializer_klass = Serializer.for(sample_object, association)
+      if is_array
+        ArraySerializer.new(object, @serializer._builder, serializer_klass)
       else
-        serializer_klass = Serializer.for(model, association)
-        serializer_klass.new(model, @serializer._builder)
-      end
-    end
-
-    def model_from_serializer(name)
-      if @serializer.is_a? ArraySerializer
-        @serializer.serializers.map { |s| s.send(name) }
-      else
-        @serializer.send(name)
+        serializer_klass.new(object, @serializer._builder)
       end
     end
 

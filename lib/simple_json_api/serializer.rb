@@ -18,6 +18,10 @@ module SimpleJsonApi
       @_base = base
     end
 
+    def associated_object(association_name)
+      send(association_name)
+    end
+
     private
 
     def default_fields
