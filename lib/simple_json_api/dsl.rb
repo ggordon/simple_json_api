@@ -65,7 +65,7 @@ module SimpleJsonApi
 
     def define_assoc_method(association)
       define_method association.name do
-        result = _object.send(association.name)
+        result = _object.send(association.name) if _object.respond_to?(association.name)
         if result.is_a? ActiveRecord::Associations::CollectionProxy
           result = result.to_a
         end

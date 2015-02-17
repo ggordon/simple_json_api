@@ -64,7 +64,7 @@ module SimpleJsonApi
         serializer = @registered_serializers.find do |entry|
           entry[:model] == model.class
         end
-        serializer[:serializer]
+        serializer[:serializer] if serializer
       end
     end
   end
