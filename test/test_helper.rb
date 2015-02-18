@@ -22,14 +22,7 @@ Minitest::Reporters.use!(
 require 'ap'
 require 'simple_json_api'
 require 'test_setup'
-require 'diffy'
-Diffy::Diff.default_format = :color
 
-# Helper to highlight diffs between two json strings
-#   compare_json(actual_projects, expected_projects.to_json)
-def compare_json(actual_json, expected_json)
-  actual_pretty = JSON.pretty_generate(JSON.parse(actual_json))
-  expected_pretty = JSON.pretty_generate(JSON.parse(expected_json))
-  diff =  Diffy::Diff.new(expected_pretty, actual_pretty)
-  puts "\n#{diff}\n" unless diff.to_s.empty?
-end
+require 'minitest_assertions'
+
+

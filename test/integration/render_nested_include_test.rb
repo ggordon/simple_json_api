@@ -4,12 +4,9 @@ require 'test_helper'
 module SimpleJsonApi
   describe 'RenderNestedIncludeTest' do
     it 'should match json hash for a project with nested includes specified' do
-      compare_json(actual_project, expected_project.to_json)
-
-      ap '_' * 20
-      ObjectSpace.each_object(ApiNode).each { |an| ap an.name }
-
-      JSON.parse(actual_project).must_equal expected_project
+      actual_project.must_match_json expected_project.to_json
+      # ap '_' * 20
+      # ObjectSpace.each_object(ApiNode).each { |an| ap an.name }
     end
 
     let(:actual_project) do

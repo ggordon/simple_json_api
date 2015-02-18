@@ -4,13 +4,11 @@ require 'test_helper'
 module SimpleJsonApi
   describe 'RenderBasicTest' do
     it 'should match json hash for a project with no options' do
-      # compare_json(actual_project, expected_project.to_json)
-      JSON.parse(actual_project).must_equal expected_project
+      actual_project.must_match_json expected_project.to_json
     end
 
     it 'should match json hash for a project array with no options' do
-      compare_json(actual_projects, expected_projects.to_json)
-      JSON.parse(actual_projects).must_equal expected_projects
+      actual_projects.must_match_json expected_projects.to_json
     end
 
     let(:actual_project) do
