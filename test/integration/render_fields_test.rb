@@ -4,19 +4,19 @@ require 'test_helper'
 module SimpleJsonApi
   describe 'RenderFieldsTest' do
     it 'should match json hash for a project with fields specified' do
-      actual_project.must_match_json expected_project.to_json
+      actual_project.must_match_json expected_project
     end
 
     it 'should match json hash for a project with fields specified as hash' do
-      actual_project_field_hash.must_match_json expected_project.to_json
+      actual_project_field_hash.must_match_json expected_project
     end
 
     it 'should match json hash for a project array with fields specified' do
-      actual_projects.must_match_json expected_projects.to_json
+      actual_projects.must_match_json expected_projects
     end
 
     it 'should match hash for todo with default_fields specified' do
-      actual_todo.must_match_json expected_todo.to_json
+      actual_todo.must_match_json expected_todo
     end
 
     let(:actual_project) do

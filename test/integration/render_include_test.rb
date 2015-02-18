@@ -4,11 +4,11 @@ require 'test_helper'
 module SimpleJsonApi
   describe 'RenderIncludeTest' do
     it 'should match json hash for a project with include specified' do
-      actual_project.must_match_json expected_project.to_json
+      actual_project.must_match_json expected_project
     end
 
     it 'should match json hash for a project array with include specified' do
-      actual_projects.must_match_json expected_projects.to_json
+      actual_projects.must_match_json expected_projects
     end
 
     let(:actual_project) do
