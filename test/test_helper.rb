@@ -22,7 +22,5 @@ Minitest::Reporters.use!(
 require 'ap'
 require 'simple_json_api'
 require 'test_setup'
-
-require 'minitest_assertions'
-
+require 'minitest-match_json'
 
