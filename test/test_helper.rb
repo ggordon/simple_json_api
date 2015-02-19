@@ -23,4 +23,6 @@ require 'ap'
 require 'simple_json_api'
 require 'test_setup'
 require 'minitest-match_json'
-
+Minitest::MatchJson.configure do |config|
+  config.format = :color
+end

@@ -25,7 +25,7 @@ group :development do
   gem 'rdoc'
 
   gem 'awesome_print'
-  gem 'minitest-match_json', path: '~/BTSync/Code/minitest-match_json'
+  gem 'minitest-match_json'
   gem 'diffy'
   gem 'minitest'
   gem 'minitest-reporters'
