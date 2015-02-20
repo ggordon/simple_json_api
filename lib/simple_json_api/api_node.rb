@@ -34,20 +34,21 @@ module SimpleJsonApi
 
     def add_association(association)
       return unless @assoc_list.key? association.plural_name
-
-      object = @serializer.associated_object(association.name)
-      each_serializer = Serializer.for(object, association)
-      serializer = SerializerFactory.create(
-        object, each_serializer, @serializer._builder
-      )
-      self <<
-        ApiNode.new(
-          association.plural_name,
-          serializer,
-          object,
-          @assoc_list[association.plural_name],
-          serializer._each_serializer
-        ).load
+      resource = @serializer.associated_object(association.name)
+      Array(resource).each do |object|
+        each_serializer = Serializer.for(object, association)
+        serializer = SerializerFactory.create(
+          object, each_serializer, @serializer._builder
+        )
+        self <<
+          ApiNode.new(
+            association.plural_name,
+            serializer,
+            object,
+            @assoc_list[association.plural_name],
+            serializer._each_serializer
+          ).load
+      end
     end
 
     def <<(node)
