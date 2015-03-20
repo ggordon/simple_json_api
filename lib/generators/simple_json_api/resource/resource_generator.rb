@@ -24,6 +24,9 @@ module SimpleJsonApi
       class_option :skip_service,
                    desc: "Don't generate a service file.",
                    type: :boolean
+      class_option :root_dir,
+                   desc: "Root dir for generated code, default: '.'.",
+                   type: :string
 
       def create_resource
         @namespace = options[:namespace]
@@ -32,19 +35,20 @@ module SimpleJsonApi
         @serializer_name = "#{namespaced_name}Serializer"
         @controller_name = "#{namespaced_name.pluralize}Controller"
         @base_controller = options[:controller] || 'ApplicationController'
+        @root_dir = options[:root_dir] || '.'
         file_path = "#{@namespace.underscore}/#{class_name.underscore}"
 
         check_model
 
         unless options[:skip_serializer]
           template 'serializer_template.rb.erb',
-                   "app/serializers/#{file_path}_serializer.rb"
+                   "#{@root_dir}/app/serializers/#{file_path}_serializer.rb"
           # TODO: create serializer test
         end
 
         unless options[:skip_controller]
           template 'controller_template.rb.erb',
-                   "app/controllers/#{file_path.pluralize}_controller.rb"
+                   "#{@root_dir}/app/controllers/#{file_path.pluralize}_controller.rb"
           # TODO: create controller test
         end
 
