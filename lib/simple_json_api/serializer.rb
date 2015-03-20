@@ -57,6 +57,7 @@ module SimpleJsonApi
       end
 
       def for(model, association)
+        return association.serializer if association.serializer.present?
         if association[:polymorphic]
           for_polymorphic(model)
         else
