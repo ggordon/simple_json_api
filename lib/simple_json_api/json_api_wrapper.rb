@@ -6,8 +6,9 @@ require 'simple_json_api/member/meta'
 module SimpleJsonApi
   # JSONAPI Wrapper
   class JsonApiWrapper
-    def initialize(root_node)
+    def initialize(root_node, page)
       @root_node = root_node
+      @page = page
       @result = {}
     end
 
@@ -27,7 +28,8 @@ module SimpleJsonApi
     end
 
     def links
-      @result[:links] ||= Member::Links.new.content
+      page = @root_node.collection? ? @page : {}
+      @result[:links] ||= Member::Links.new(page).content
     end
 
     def meta

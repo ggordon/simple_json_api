@@ -20,6 +20,10 @@ module SimpleJsonApi
       @associations = [] # list of api_nodes
     end
 
+    def collection?
+      @serializer.is_a? ArraySerializer
+    end
+
     def load
       return self unless serializer_actual._associations
       serializer_actual._associations.each do |association|

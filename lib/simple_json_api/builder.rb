@@ -19,17 +19,18 @@ module SimpleJsonApi
     def_delegators :@field_list, :fields_for
 
     # TODO: sort: nil
-    def initialize(object, wrapper, serializer, fields, include)
+    def initialize(object, wrapper, serializer, fields, include, page)
       @object = object
       @wrapper = wrapper
       @field_list = FieldList.new(fields, serializer)
       @include = IncludeList.new(include).parse
+      @page = page
       @serializer = SerializerFactory.create(object, serializer, self)
     end
 
     def as_json(options = nil)
       root_node = ApiNode.new(serializer._root_name, serializer, include.include_hash).load
-      wrapper.new(root_node).as_json(options)
+      wrapper.new(root_node, @page).as_json(options)
     end
   end
 end
