@@ -36,7 +36,10 @@ module SimpleJsonApi
         @controller_name = "#{namespaced_name.pluralize}Controller"
         @base_controller = options[:controller] || 'ApplicationController'
         @root_dir = options[:root_dir] || '.'
-        file_path = "#{@namespace.underscore}/#{class_name.underscore}"
+        file_path = [
+          @namespace.try(:underscore),
+          class_name.underscore
+        ].compact.join('/')
 
         check_model
 
