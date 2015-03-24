@@ -40,10 +40,10 @@ module SimpleJsonApi
       _fields.each do |attribute, _attr_opts|
         hash[attribute] = send(attribute).to_s
       end
-      hash[:href] = href if self.class.method_defined? :href
     end
 
     def link_values(root)
+      root[:self] = self.href if self.class.method_defined? :href
       self.class._associations.each do |association|
         root[association.key] = link(association)
       end
