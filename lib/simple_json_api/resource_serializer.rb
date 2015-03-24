@@ -43,7 +43,7 @@ module SimpleJsonApi
     end
 
     def link_values(root)
-      root[:self] = self.href if self.class.method_defined? :href
+      root[:self] = href if self.class.method_defined? :href
       self.class._associations.each do |association|
         root[association.key] = link(association)
       end
@@ -51,14 +51,29 @@ module SimpleJsonApi
 
     def link(association)
       if association.type == :has_many
-        includes = association.polymorphic ? [] : Serializer.includes(association)
-        resource = send(association.name, includes)
-        resource.map do |obj|
-          association[:polymorphic] ? obj.typed_json_id : obj.json_id
-        end
+        link_many(association)
       else
-        resource = send(association.name)
-        resource.json_id if resource
+        link_one(association)
+      end
+    end
+
+    def link_many(association)
+      resource = send(association.name, includes(association))
+      resource.map do |obj|
+        association[:polymorphic] ? obj.typed_json_id : obj.json_id
+      end
+    end
+
+    def link_one(association)
+      resource = send(association.name)
+      resource.json_id if resource
+    end
+
+    def includes(association)
+      if association.polymorphic
+        []
+      else
+        Serializer.includes(association)
       end
     end
 

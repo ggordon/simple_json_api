@@ -40,10 +40,10 @@ module SimpleJsonApi
     def builder_fields
       bf = _builder.fields_for(_root_name).presence
       fields = if bf.present?
-        (required_fields + Array(bf)).uniq
-      else
-        default_fields ? default_fields & all_fields : all_fields
-      end
+                 (required_fields + Array(bf)).uniq
+               else
+                 default_fields ? default_fields & all_fields : all_fields
+               end
       (required_fields + Array(fields)).uniq.map(&:to_sym)
     end
 
@@ -67,7 +67,9 @@ module SimpleJsonApi
 
       def includes(association)
         serializer = Serializer.for_regular(association)
-        serializer._associations.reject(&:polymorphic).map { |a| a[:name] } if serializer
+        serializer._associations.reject(&:polymorphic).map do |assoc|
+          assoc[:name]
+        end if serializer
       end
 
       def for_regular(association)

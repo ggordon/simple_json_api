@@ -69,14 +69,15 @@ module SimpleJsonApi
       define_assoc_method(association) # unless defined? association.name
     end
 
-    def define_assoc_method(association)
-      if association.type == :has_many
-        define_method association.name do |includes = nil|
-          _object.send(association.name).includes(includes).to_a if _object.respond_to?(association.name)
+    def define_assoc_method(assoc)
+      if assoc.type == :has_many
+        define_method assoc.name do |includes = nil|
+          _object.send(assoc.name).includes(includes).to_a \
+            if _object.respond_to?(assoc.name)
         end
       else
-        define_method association.name do |includes = nil|
-          _object.send(association.name) if _object.respond_to?(association.name)
+        define_method assoc.name do |_includes = nil|
+          _object.send(assoc.name) if _object.respond_to?(assoc.name)
         end
       end
     end

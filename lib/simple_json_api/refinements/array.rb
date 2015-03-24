@@ -4,7 +4,7 @@ module SimpleJsonApi
     # Refinements on Array
     module Array
       refine ::Array do
-        def includes(includes = nil)
+        def includes(_includes = nil)
           self
         end
       end

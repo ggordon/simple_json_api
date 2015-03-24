@@ -20,7 +20,6 @@ todo1.tags << tag3
 todo2 = list1.todos.create(id: 301, action: 'Bread')
 todo2.tags << tag1
 
-
 list2 = project2.create_todolist(id: 210, description: 'Work')
 list2.todos.create(id: 310, action: 'Timesheet')
 list2.todos.create(id: 320, action: 'Meeting')

@@ -29,7 +29,9 @@ module SimpleJsonApi
     end
 
     def as_json(options = nil)
-      root_node = ApiNode.new(serializer._root_name, serializer, include.include_hash).load
+      root_node = ApiNode.new(
+        serializer._root_name, serializer, include.include_hash
+      ).load
       wrapper.new(root_node, @page).as_json(options)
     end
   end

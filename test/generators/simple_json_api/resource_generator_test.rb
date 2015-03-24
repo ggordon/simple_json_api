@@ -19,7 +19,7 @@ module SimpleJsonApi
       def test_bad_model
         assert_raises(SystemExit) do
           run_generator \
-          %w(Project --namespace=Api::V3 --model=ProjectSerializer)
+            %w(Project --namespace=Api::V3 --model=ProjectSerializer)
         end
       end
 
