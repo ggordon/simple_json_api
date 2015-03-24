@@ -24,8 +24,8 @@ module SimpleJsonApi
         'data' => {
           'type' => 'projects',
           'id' => '100',
-          'href' => 'http://example.com/projects/100',
           'links' => {
+            'self' => 'http://example.com/projects/100',
             'todolist' => '200',
             'tags' => ['10']
           }
@@ -34,8 +34,8 @@ module SimpleJsonApi
           {
             'type' => 'todolists',
             'id' => '200',
-            'href' => 'http://example.com/todolists/200',
             'links' => {
+              'self' => 'http://example.com/todolists/200',
               'todos' => %w(300 301),
               'tags' => ['30']
             }
@@ -43,24 +43,24 @@ module SimpleJsonApi
           {
             'type' => 'todos',
             'id' => '300',
-            'href' => 'http://example.com/todos/300',
             'links' => {
+              'self' => 'http://example.com/todos/300',
               'tags' => %w(10 30)
             }
           },
           {
             'type' => 'todos',
             'id' => '301',
-            'href' => 'http://example.com/todos/301',
             'links' => {
+              'self' => 'http://example.com/todos/301',
               'tags' => %w(10)
             }
           },
           {
             'type' => 'todos',
             'id' => '330',
-            'href' => 'http://example.com/todos/330',
             'links' => {
+              'self' => 'http://example.com/todos/330',
               'tags' => %w(10)
             }
           }

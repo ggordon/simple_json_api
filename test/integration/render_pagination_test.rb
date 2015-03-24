@@ -26,8 +26,8 @@ module SimpleJsonApi
           'name' => 'First Project',
           'description' => 'The first project',
           'position' => '',
-          'href' => 'http://example.com/projects/100',
           'links' => {
+            'self' => 'http://example.com/projects/100',
             'todolist' => '200',
             'tags' => %w(10)
           }
@@ -58,8 +58,8 @@ module SimpleJsonApi
             'name' => 'First Project',
             'description' => 'The first project',
             'position' => '',
-            'href' => 'http://example.com/projects/100',
             'links' => {
+              'self' => 'http://example.com/projects/100',
               'todolist' => '200',
               'tags' => %w(10)
             }
@@ -70,8 +70,8 @@ module SimpleJsonApi
             'name' => 'Second Project',
             'description' => 'The second project',
             'position' => '',
-            'href' => 'http://example.com/projects/110',
             'links' => {
+              'self' => 'http://example.com/projects/110',
               'todolist' => '210',
               'tags' => %w(20)
             }

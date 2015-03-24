@@ -26,8 +26,8 @@ module SimpleJsonApi
           'name' => 'First Project',
           'description' => 'The first project',
           'position' => '',
-          'href' => 'http://example.com/projects/100',
           'links' => {
+            'self' => 'http://example.com/projects/100',
             'todolist' => '200',
             'tags' => ['10']
           }
@@ -37,8 +37,8 @@ module SimpleJsonApi
             'type' => 'todolists',
             'id' => '200',
             'description' => 'Groceries',
-            'href' => 'http://example.com/todolists/200',
             'links' => {
+              'self' => 'http://example.com/todolists/200',
               'todos' => %w(300 301),
               'tags' => ['30']
             }
@@ -63,8 +63,8 @@ module SimpleJsonApi
             'name' => 'First Project',
             'description' => 'The first project',
             'position' => '',
-            'href' => 'http://example.com/projects/100',
             'links' => {
+              'self' => 'http://example.com/projects/100',
               'todolist' => '200',
               'tags' => ['10']
             }
@@ -75,8 +75,8 @@ module SimpleJsonApi
             'name' => 'Second Project',
             'description' => 'The second project',
             'position' => '',
-            'href' => 'http://example.com/projects/110',
             'links' => {
+              'self' => 'http://example.com/projects/110',
               'todolist' => '210',
               'tags' => ['20']
             }
@@ -87,8 +87,8 @@ module SimpleJsonApi
             'type' => 'todolists',
             'id' => '200',
             'description' => 'Groceries',
-            'href' => 'http://example.com/todolists/200',
             'links' => {
+              'self' => 'http://example.com/todolists/200',
               'todos' => %w(300 301),
               'tags' => ['30']
             }
@@ -98,8 +98,8 @@ module SimpleJsonApi
             'id' => '210',
             'description' => 'Groceries',
             'description' => 'Work',
-            'href' => 'http://example.com/todolists/210',
             'links' => {
+              'self' => 'http://example.com/todolists/210',
               'todos' => %w(310 320 330),
               'tags' => []
             }
