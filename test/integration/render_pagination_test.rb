@@ -28,8 +28,14 @@ module SimpleJsonApi
           'position' => '',
           'links' => {
             'self' => 'http://example.com/projects/100',
-            'todolist' => '200',
-            'tags' => %w(10)
+            'todolist' => {
+              'linkage' => { 'type' => 'todolists', 'id' => '200' }
+            },
+            'tags' => {
+              'linkage' => [
+                { 'type' => 'tags', 'id' => '10' }
+              ]
+            }
           }
         }
       }
@@ -60,8 +66,14 @@ module SimpleJsonApi
             'position' => '',
             'links' => {
               'self' => 'http://example.com/projects/100',
-              'todolist' => '200',
-              'tags' => %w(10)
+              'todolist' => {
+                'linkage' => { 'type' => 'todolists', 'id' => '200' }
+              },
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '10' }
+                ]
+              }
             }
           },
           {
@@ -72,8 +84,14 @@ module SimpleJsonApi
             'position' => '',
             'links' => {
               'self' => 'http://example.com/projects/110',
-              'todolist' => '210',
-              'tags' => %w(20)
+              'todolist' => {
+                'linkage' => { 'type' => 'todolists', 'id' => '210' }
+              },
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '20' }
+                ]
+              }
             }
           }
         ]

@@ -28,8 +28,14 @@ module SimpleJsonApi
           'position' => '',
           'links' => {
             'self' => 'http://example.com/projects/100',
-            'todolist' => '200',
-            'tags' => ['10']
+            'todolist' => {
+              'linkage' => { 'type' => 'todolists', 'id' => '200' }
+            },
+            'tags' => {
+              'linkage' => [
+                { 'type' => 'tags', 'id' => '10' }
+              ]
+            }
           }
         },
         'included' => [
@@ -39,8 +45,17 @@ module SimpleJsonApi
             'description' => 'Groceries',
             'links' => {
               'self' => 'http://example.com/todolists/200',
-              'todos' => %w(300 301),
-              'tags' => ['30']
+              'todos' => {
+                'linkage' => [
+                  { 'type' => 'todos', 'id' => '300' },
+                  { 'type' => 'todos', 'id' => '301' }
+                ]
+              },
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '30' }
+                ]
+              }
             }
           }
         ]
@@ -65,8 +80,14 @@ module SimpleJsonApi
             'position' => '',
             'links' => {
               'self' => 'http://example.com/projects/100',
-              'todolist' => '200',
-              'tags' => ['10']
+              'todolist' => {
+                'linkage' => { 'type' => 'todolists', 'id' => '200' }
+              },
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '10' }
+                ]
+              }
             }
           },
           {
@@ -77,8 +98,14 @@ module SimpleJsonApi
             'position' => '',
             'links' => {
               'self' => 'http://example.com/projects/110',
-              'todolist' => '210',
-              'tags' => ['20']
+              'todolist' => {
+                'linkage' => { 'type' => 'todolists', 'id' => '210' }
+              },
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '20' }
+                ]
+              }
             }
           }
         ],
@@ -89,8 +116,17 @@ module SimpleJsonApi
             'description' => 'Groceries',
             'links' => {
               'self' => 'http://example.com/todolists/200',
-              'todos' => %w(300 301),
-              'tags' => ['30']
+              'todos' => {
+                'linkage' => [
+                  { 'type' => 'todos', 'id' => '300' },
+                  { 'type' => 'todos', 'id' => '301' }
+                ]
+              },
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '30' }
+                ]
+              }
             }
           },
           {
@@ -100,8 +136,16 @@ module SimpleJsonApi
             'description' => 'Work',
             'links' => {
               'self' => 'http://example.com/todolists/210',
-              'todos' => %w(310 320 330),
-              'tags' => []
+              'todos' => {
+                'linkage' => [
+                  { 'type' => 'todos', 'id' => '310' },
+                  { 'type' => 'todos', 'id' => '320' },
+                  { 'type' => 'todos', 'id' => '330' }
+                ]
+              },
+              'tags' => {
+                'linkage' => []
+              }
             }
           },
           {
@@ -110,12 +154,14 @@ module SimpleJsonApi
             'guid' => '10',
             'name' => 'Urgent!',
             'links' => {
-              'taggables' => [
-                %w(projects 100),
-                %w(todos 300),
-                %w(todos 301),
-                %w(todos 330)
-              ]
+              'taggables' => {
+                'linkage' => [
+                  { 'type' => 'projects', 'id' => '100' },
+                  { 'type' => 'todos', 'id' => '300' },
+                  { 'type' => 'todos', 'id' => '301' },
+                  { 'type' => 'todos', 'id' => '330' }
+                ]
+              }
             }
           },
           {
@@ -124,9 +170,11 @@ module SimpleJsonApi
             'guid' => '20',
             'name' => 'On Hold',
             'links' => {
-              'taggables' => [
-                %w(projects 110)
-              ]
+              'taggables' => {
+                'linkage' => [
+                  { 'type' => 'projects', 'id' => '110' }
+                ]
+              }
             }
           }
         ]
