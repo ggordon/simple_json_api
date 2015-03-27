@@ -64,7 +64,7 @@ module SimpleJsonApi
 
     def link_one(association)
       resource = send(association.name)
-      resource ? { linkage: resource.typed_json_id } : nil
+      { linkage: resource.typed_json_id } if resource
     end
 
     def linkage_values(resource)
