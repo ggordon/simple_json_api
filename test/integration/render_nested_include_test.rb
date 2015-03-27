@@ -26,8 +26,14 @@ module SimpleJsonApi
           'id' => '100',
           'links' => {
             'self' => 'http://example.com/projects/100',
-            'todolist' => '200',
-            'tags' => ['10']
+            'todolist' => {
+              'linkage' => { 'type' => 'todolists', 'id' => '200' }
+            },
+            'tags' => {
+              'linkage' => [
+                { 'type' => 'tags', 'id' => '10' }
+              ]
+            }
           }
         },
         'included' => [
@@ -36,8 +42,17 @@ module SimpleJsonApi
             'id' => '200',
             'links' => {
               'self' => 'http://example.com/todolists/200',
-              'todos' => %w(300 301),
-              'tags' => ['30']
+              'todos' => {
+                'linkage' => [
+                  { 'type' => 'todos', 'id' => '300' },
+                  { 'type' => 'todos', 'id' => '301' }
+                ]
+              },
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '30' }
+                ]
+              }
             }
           },
           {
@@ -45,7 +60,12 @@ module SimpleJsonApi
             'id' => '300',
             'links' => {
               'self' => 'http://example.com/todos/300',
-              'tags' => %w(10 30)
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '10' },
+                  { 'type' => 'tags', 'id' => '30' }
+                ]
+              }
             }
           },
           {
@@ -53,7 +73,11 @@ module SimpleJsonApi
             'id' => '301',
             'links' => {
               'self' => 'http://example.com/todos/301',
-              'tags' => %w(10)
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '10' }
+                ]
+              }
             }
           },
           {
@@ -61,7 +85,11 @@ module SimpleJsonApi
             'id' => '330',
             'links' => {
               'self' => 'http://example.com/todos/330',
-              'tags' => %w(10)
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '10' }
+                ]
+              }
             }
           }
         ]

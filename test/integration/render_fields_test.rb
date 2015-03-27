@@ -31,8 +31,14 @@ module SimpleJsonApi
           'description' => 'The first project',
           'links' => {
             'self' => 'http://example.com/projects/100',
-            'todolist' => '200',
-            'tags' => ['10']
+            'todolist' => {
+              'linkage' => { 'type' => 'todolists', 'id' => '200' }
+            },
+            'tags' => {
+              'linkage' => [
+                { 'type' => 'tags', 'id' => '10' }
+              ]
+            }
           }
         }
       }
@@ -55,8 +61,14 @@ module SimpleJsonApi
             'description' => 'The first project',
             'links' => {
               'self' => 'http://example.com/projects/100',
-              'todolist' => '200',
-              'tags' => ['10']
+              'todolist' => {
+                'linkage' => { 'type' => 'todolists', 'id' => '200' }
+              },
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '10' }
+                ]
+              }
             }
           },
           {
@@ -66,8 +78,14 @@ module SimpleJsonApi
             'description' => 'The second project',
             'links' => {
               'self' => 'http://example.com/projects/110',
-              'todolist' => '210',
-              'tags' => ['20']
+              'todolist' => {
+                'linkage' => { 'type' => 'todolists', 'id' => '210' }
+              },
+              'tags' => {
+                'linkage' => [
+                  { 'type' => 'tags', 'id' => '20' }
+                ]
+              }
             }
           }
         ]
@@ -88,7 +106,12 @@ module SimpleJsonApi
           'action' => 'Milk',
           'links' => {
             'self' => 'http://example.com/todos/300',
-            'tags' => %w(10 30)
+            'tags' => {
+              'linkage' => [
+                { 'type' => 'tags', 'id' => '10' },
+                { 'type' => 'tags', 'id' => '30' }
+              ]
+            }
           }
         }
       }

@@ -7,7 +7,7 @@ module SimpleJsonApi
     module ActiveRecord
       refine ::ActiveRecord::Base do
         def typed_json_id
-          [self.class.to_s.downcase.pluralize, json_id]
+          { type: self.class.to_s.downcase.pluralize, id: json_id }
         end
 
         def json_id

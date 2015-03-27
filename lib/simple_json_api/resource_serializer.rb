@@ -59,14 +59,18 @@ module SimpleJsonApi
 
     def link_many(association)
       resource = send(association.name, includes(association))
-      resource.map do |obj|
-        association[:polymorphic] ? obj.typed_json_id : obj.json_id
-      end
+      { linkage: linkage_values(resource) }
     end
 
     def link_one(association)
       resource = send(association.name)
-      resource.json_id if resource
+      { linkage: resource.typed_json_id } if resource
+    end
+
+    def linkage_values(resource)
+      resource.map do |obj|
+        obj.typed_json_id
+      end
     end
 
     def includes(association)
