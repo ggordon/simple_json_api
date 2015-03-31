@@ -20,6 +20,11 @@ Or install it yourself as:
 
     $ gem install simple_json_api
 
+
+### Rails Integration
+
+Use the gem [simple_json_api-rails](https://github.com/dajacques/simple_json_api-rails)
+
 ## Usage
 
 ### Define serializers
@@ -58,6 +63,7 @@ render json: SimpleJsonApi.render(
 
 When rendering the model is the AR data to be serialized, if it is an Array the ArraySerializer will be used for the top collection.
 `fields` and `include` follow the jsonapi spec. [Include](http://jsonapi.org/format/#fetching-includes) will be the associations to be included in the generated json. [Fields](http://jsonapi.org/format/#fetching-sparse-fieldsets) is the list of attributes that will be included. The primary key will always be included.
+
 
 ## TODO
 
