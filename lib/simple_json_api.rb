@@ -4,6 +4,7 @@ require 'simple_json_api/json_api_wrapper'
 require 'simple_json_api/builder'
 require 'simple_json_api/resource'
 require 'simple_json_api/helper'
+require 'simple_json_api/validator'
 
 # require 'simple_json_api/helper'
 
