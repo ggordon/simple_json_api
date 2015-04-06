@@ -14,7 +14,7 @@ module SimpleJsonApi
 
     def as_json(_options = nil)
       add_members
-      @result.delete_if { |_, content| content.blank? }
+      @result.delete_if { |key, content| content.blank? && key != :data }
       @result
     end
 
