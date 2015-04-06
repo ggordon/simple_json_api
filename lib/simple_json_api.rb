@@ -14,4 +14,9 @@ module SimpleJsonApi
   def self.render(model:, serializer:, fields: nil, include: nil, page: {}, wrapper: JsonApiWrapper)
     Builder.new(model, wrapper, serializer, fields, include, page).to_json
   end
+
+  # Validate jsonapi
+  def self.validate(json)
+    Validator.new.validate(json)
+  end
 end
