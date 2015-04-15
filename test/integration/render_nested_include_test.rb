@@ -13,6 +13,7 @@ module SimpleJsonApi
       SimpleJsonApi.render(
         model: Project.first,
         serializer: ProjectSerializer,
+        context: { base_url: 'http://example.com' },
         include: 'todolists'\
                  ',todolists.todos'\
                  ',todolists.todos.tags.taggables',
@@ -21,6 +22,9 @@ module SimpleJsonApi
     end
     let(:expected_project) do
       {
+        'links' => {
+          'self' => 'http://example.com/projects/100'
+        },
         'data' => {
           'type' => 'projects',
           'id' => '100',

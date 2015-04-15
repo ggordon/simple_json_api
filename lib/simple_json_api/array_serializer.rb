@@ -4,7 +4,7 @@ module SimpleJsonApi
   class ArraySerializer < Serializer
     def serialize
       _object.map do |object|
-        serializer = _each_serializer.new(object, _builder)
+        serializer = _each_serializer.new(object, _builder, _context)
         Resource.new(serializer.serialize)
       end
     end
@@ -23,8 +23,12 @@ module SimpleJsonApi
 
     def serializers
       _object.map do |object|
-        _each_serializer.new(object, _builder)
+        _each_serializer.new(object, _builder, _context)
       end
+    end
+
+    def href
+      _context[:base_url] + "/#{_root_name}"
     end
   end
 end

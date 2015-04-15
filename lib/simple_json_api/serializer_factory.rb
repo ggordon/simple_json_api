@@ -6,11 +6,11 @@ require 'simple_json_api/resource_serializer'
 module SimpleJsonApi
   # The SerializerFactory will return the serializer for an object
   class SerializerFactory
-    def self.create(object, serializer, builder)
+    def self.create(object, serializer, context, builder)
       if use_array_serializer?(object)
-        ArraySerializer.new(object, builder, serializer)
+        ArraySerializer.new(object, builder, context, serializer)
       else
-        serializer.new(object, builder)
+        serializer.new(object, builder, context)
       end
     end
 

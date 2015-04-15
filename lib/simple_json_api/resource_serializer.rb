@@ -43,7 +43,7 @@ module SimpleJsonApi
     end
 
     def link_values(root)
-      root[:self] = href if self.class.method_defined? :href
+      root[:self] = href if _context.present?
       self.class._associations.each do |association|
         root[association.key] = link(association)
       end
@@ -71,6 +71,10 @@ module SimpleJsonApi
       resource.map do |obj|
         obj.typed_json_id
       end
+    end
+
+    def href
+      _context[:base_url] + "/#{type}/#{id}"
     end
 
     def includes(association)

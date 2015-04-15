@@ -29,7 +29,7 @@ module SimpleJsonApi
 
     def links
       page = @root_node.collection? ? @page : {}
-      @result[:links] ||= Member::Links.new(page).content
+      @result[:links] ||= Member::Links.new(@root_node, page).content
     end
 
     def meta

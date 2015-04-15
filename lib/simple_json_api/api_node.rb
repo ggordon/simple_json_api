@@ -47,7 +47,7 @@ module SimpleJsonApi
     def add_nodes(association, object)
       each_serializer = Serializer.for(object, association)
       serializer = SerializerFactory.create(
-        object, each_serializer, self.serializer._builder
+        object, each_serializer, self.serializer._context, self.serializer._builder
       )
       add_node(association, serializer)
     end
