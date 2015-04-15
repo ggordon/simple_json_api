@@ -9,11 +9,15 @@ module SimpleJsonApi
     let(:actual_projects) do
       SimpleJsonApi.render(
         model: Project.none.to_a,
-        serializer: ProjectSerializer
+        serializer: ProjectSerializer,
+        context: { base_url: 'http://example.com' }
       )
     end
     let(:expected_projects) do
       {
+        'links' => {
+          'self' => 'http://example.com/projects'
+        },
         'data' => []
       }
     end

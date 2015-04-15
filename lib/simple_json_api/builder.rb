@@ -15,17 +15,19 @@ module SimpleJsonApi
     attr_reader :include
     attr_reader :object
     attr_reader :serializer
+    attr_reader :context
 
     def_delegators :@field_list, :fields_for
 
     # TODO: sort: nil
-    def initialize(object, wrapper, serializer, fields, include, page)
+    def initialize(object, wrapper, serializer, fields, include, context, page)
       @object = object
       @wrapper = wrapper
       @field_list = FieldList.new(fields, serializer)
       @include = IncludeList.new(include).parse
       @page = page
-      @serializer = SerializerFactory.create(object, serializer, self)
+      @serializer = SerializerFactory.create(object, serializer, context, self)
+      @context = context
     end
 
     def as_json(options = nil)

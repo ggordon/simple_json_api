@@ -15,11 +15,15 @@ module SimpleJsonApi
       SimpleJsonApi.render(
         model: Project.first,
         serializer: ProjectSerializer,
+        context: { base_url: 'http://example.com' },
         include: 'todolists'
       )
     end
     let(:expected_project) do
       {
+        'links' => {
+          'self' => 'http://example.com/projects/100'
+        },
         'data' => {
           'type' => 'projects',
           'id' => '100',
@@ -66,11 +70,15 @@ module SimpleJsonApi
       SimpleJsonApi.render(
         model: Project.all.to_a,
         serializer: ProjectSerializer,
+        context: { base_url: 'http://example.com' },
         include: 'todolists,tags'
       )
     end
     let(:expected_projects) do
       {
+        'links' => {
+          'self' => 'http://example.com/projects'
+        },
         'data' => [
           {
             'type' => 'projects',
@@ -154,6 +162,7 @@ module SimpleJsonApi
             'guid' => '10',
             'name' => 'Urgent!',
             'links' => {
+              'self' => 'http://example.com/tags/10',
               'taggables' => {
                 'linkage' => [
                   { 'type' => 'projects', 'id' => '100' },
@@ -170,6 +179,7 @@ module SimpleJsonApi
             'guid' => '20',
             'name' => 'On Hold',
             'links' => {
+              'self' => 'http://example.com/tags/20',
               'taggables' => {
                 'linkage' => [
                   { 'type' => 'projects', 'id' => '110' }

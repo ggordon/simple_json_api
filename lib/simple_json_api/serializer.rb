@@ -11,10 +11,12 @@ module SimpleJsonApi
     attr_reader :_builder
     attr_reader :_each_serializer
     attr_reader :_object
+    attr_reader :_context
 
-    def initialize(object, builder, each_serializer = nil, base = nil)
+    def initialize(object, builder, context, each_serializer = nil, base = nil)
       @_object = object
       @_builder = builder
+      @_context = context
       @_each_serializer = each_serializer
       @_base = base
     end

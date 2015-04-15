@@ -14,11 +14,15 @@ module SimpleJsonApi
     let(:actual_project) do
       SimpleJsonApi.render(
         model: Project.first,
-        serializer: ProjectSerializer
+        serializer: ProjectSerializer,
+        context: { base_url: 'http://example.com' }
       )
     end
     let(:expected_project) do
       {
+        'links' => {
+          'self' => 'http://example.com/projects/100'
+        },
         'data' => {
           'type' => 'projects',
           'id' => '100',
@@ -43,11 +47,15 @@ module SimpleJsonApi
     let(:actual_projects) do
       SimpleJsonApi.render(
         model: Project.all.to_a,
-        serializer: ProjectSerializer
+        serializer: ProjectSerializer,
+        context: { base_url: 'http://example.com' }
       )
     end
     let(:expected_projects) do
       {
+        'links' => {
+          'self' => 'http://example.com/projects'
+        },
         'data' => [
           {
             'type' => 'projects',

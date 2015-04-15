@@ -11,8 +11,8 @@ require 'simple_json_api/validator'
 # SimpleJsonApi
 module SimpleJsonApi
   # Main hook to generate json
-  def self.render(model:, serializer:, fields: nil, include: nil, page: {}, wrapper: JsonApiWrapper)
-    Builder.new(model, wrapper, serializer, fields, include, page).to_json
+  def self.render(model:, serializer:, fields: nil, include: nil, page: {}, context: nil, wrapper: JsonApiWrapper)
+    Builder.new(model, wrapper, serializer, fields, include, context, page).to_json
   end
 
   # Validate jsonapi
